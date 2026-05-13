@@ -1,19 +1,19 @@
-# Pneumonia Detection from Chest X‑rays
+# Pneumonia Detection from Chest X-rays
 
-This repository contains a notebook-based deep learning project that classifies chest X‑ray images as **Pneumonia** or **Normal**. It includes a trained model artifact and a project report.
+This repository contains a notebook-based deep learning project that classifies chest X-ray images as **Pneumonia** or **Normal**. It includes a trained model artifact and a project report.
 
 > **Disclaimer:** This project is for educational/research use only and is **not** intended for clinical diagnosis.
 
 ## Repository Contents
 
-- `pneumonia.ipynb` — end‑to‑end notebook (data loading, preprocessing, training, evaluation).
+- `pneumonia.ipynb` — end-to-end notebook (data loading, preprocessing, training, evaluation).
 - `best_model.keras` — best checkpoint saved during training.
 - `Pneumonia Detection Report.pdf` — detailed report with methodology and results.
 - `README.md` — project documentation.
 
 ## Dataset
 
-The notebook expects the **Chest X‑Ray Pneumonia** dataset (commonly from Kaggle). The expected directory structure is:
+The notebook expects the **Chest X-Ray Pneumonia** dataset (commonly from Kaggle). The expected directory structure is:
 
 ```
 chest_xray/
@@ -33,7 +33,7 @@ In the notebook, the default Colab paths are `/content/chest_xray/train`, `/cont
 ## Approach Summary (from `pneumonia.ipynb`)
 
 **Preprocessing**
-- Grayscale images resized to **150×150**.
+- Grayscale images resized to **150x150**.
 - Pixel values normalized to `[0, 1]`.
 
 **Data Augmentation**
@@ -45,7 +45,7 @@ In the notebook, the default Colab paths are `/content/chest_xray/train`, `/cont
 - Dropout (0.2, 0.3)
 - Dense(256) + Dense(1, sigmoid)
 - Optimizer: **RMSprop**
-- Loss: **binary cross‑entropy**
+- Loss: **binary cross-entropy**
 
 **Training**
 - Batch size: **16**
@@ -53,7 +53,7 @@ In the notebook, the default Colab paths are `/content/chest_xray/train`, `/cont
 - Callbacks: `ReduceLROnPlateau`, `EarlyStopping`, `ModelCheckpoint` (saves `best_model.keras`)
 
 **Evaluation**
-- Accuracy, precision, recall, F1, ROC‑AUC
+- Accuracy, precision, recall, F1, ROC-AUC
 - Confusion matrix and learning curves
 
 For detailed results and plots, see **Pneumonia Detection Report.pdf**.
@@ -89,7 +89,7 @@ model = keras.models.load_model("best_model.keras")
 ## Notes & Limitations
 
 - The notebook mixes data preparation, training, and evaluation in a single file.
-- The validation set in the notebook is extended by concatenating the test set; adjust this if you want a strict hold‑out test set.
+- The validation set in the notebook is extended by concatenating the test set; adjust this if you want a strict hold-out test set.
 - Results depend on dataset version and preprocessing choices.
 
 ## License
