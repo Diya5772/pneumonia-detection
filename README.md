@@ -1,75 +1,97 @@
-# Pneumonia Detection
+# Pneumonia Detection from Chest X‑rays
 
-A deep-learning project for detecting pneumonia from chest X‑ray images.
+This repository contains a notebook-based deep learning project that classifies chest X‑ray images as **Pneumonia** or **Normal**. It includes a trained model artifact and a project report.
 
-## Overview
-This repository contains code and notebooks to train and evaluate a model that classifies chest X‑ray images as **Pneumonia** or **Normal**.
+> **Disclaimer:** This project is for educational/research use only and is **not** intended for clinical diagnosis.
 
-> **Note**: This project is for educational/research purposes and is **not** intended for clinical use.
+## Repository Contents
 
-## Project Structure
-*(May vary depending on the current branch contents)*
+- `pneumonia.ipynb` — end‑to‑end notebook (data loading, preprocessing, training, evaluation).
+- `best_model.keras` — best checkpoint saved during training.
+- `Pneumonia Detection Report.pdf` — detailed report with methodology and results.
+- `README.md` — project documentation.
 
-- `data/` – dataset directory (usually not committed)
-- `notebooks/` – exploratory notebooks
-- `src/` – training/inference code
-- `models/` – saved model weights/checkpoints
-- `requirements.txt` – Python dependencies
+## Dataset
 
-## Setup
+The notebook expects the **Chest X‑Ray Pneumonia** dataset (commonly from Kaggle). The expected directory structure is:
 
-### 1) Clone the repository
-```bash
-git clone https://github.com/Diya5772/pneumonia-detection.git
-cd pneumonia-detection
+```
+chest_xray/
+  train/
+    PNEUMONIA/
+    NORMAL/
+  val/
+    PNEUMONIA/
+    NORMAL/
+  test/
+    PNEUMONIA/
+    NORMAL/
 ```
 
-### 2) Create a virtual environment (recommended)
-```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
+In the notebook, the default Colab paths are `/content/chest_xray/train`, `/content/chest_xray/val`, and `/content/chest_xray/test`. Update these paths if you run locally.
+
+## Approach Summary (from `pneumonia.ipynb`)
+
+**Preprocessing**
+- Grayscale images resized to **150×150**.
+- Pixel values normalized to `[0, 1]`.
+
+**Data Augmentation**
+- Rotation, shifts, shear, zoom, horizontal flip.
+
+**Model Architecture (CNN)**
+- Conv blocks with filters: **32 → 64 → 128 → 256 → 512**
+- Batch normalization + max pooling after each block
+- Dropout (0.2, 0.3)
+- Dense(256) + Dense(1, sigmoid)
+- Optimizer: **RMSprop**
+- Loss: **binary cross‑entropy**
+
+**Training**
+- Batch size: **16**
+- Epochs: **25**
+- Callbacks: `ReduceLROnPlateau`, `EarlyStopping`, `ModelCheckpoint` (saves `best_model.keras`)
+
+**Evaluation**
+- Accuracy, precision, recall, F1, ROC‑AUC
+- Confusion matrix and learning curves
+
+For detailed results and plots, see **Pneumonia Detection Report.pdf**.
+
+## Getting Started
+
+### Option A: Run in Google Colab
+1. Upload `pneumonia.ipynb` to Colab.
+2. Mount Google Drive and place the dataset zip (as used in the notebook).
+3. Run the notebook cells in order.
+
+### Option B: Run Locally
+1. Create and activate a virtual environment.
+2. Install dependencies (from notebook imports):
+   - `tensorflow`
+   - `keras`
+   - `numpy`, `pandas`
+   - `matplotlib`, `seaborn`
+   - `scikit-learn`
+   - `opencv-python`
+3. Update dataset paths in the notebook to match your local folder structure.
+4. Run the notebook.
+
+## Using the Trained Model
+
+`best_model.keras` is saved via `ModelCheckpoint` in the notebook. You can load it with:
+
+```python
+from tensorflow import keras
+model = keras.models.load_model("best_model.keras")
 ```
 
-### 3) Install dependencies
-```bash
-pip install -r requirements.txt
-```
+## Notes & Limitations
 
-## Data
-This project typically uses a public chest X‑ray dataset (e.g., the Kaggle Chest X‑Ray Pneumonia dataset).
-
-1. Download the dataset.
-2. Place it under `data/` in the expected train/val/test structure.
-
-If your code expects a different structure, update this section with the exact paths.
-
-## Training
-*(Adjust commands to match the repo’s actual entrypoints)*
-
-Example:
-```bash
-python -m src.train --data_dir data --epochs 10 --batch_size 32
-```
-
-## Inference
-Example:
-```bash
-python -m src.predict --image_path path/to/xray.jpg --checkpoint models/best.pt
-```
-
-## Results
-Add metrics such as accuracy, precision/recall, confusion matrix, and sample predictions here.
-
-## Contributing
-Contributions are welcome.
-
-1. Fork the repo
-2. Create a feature branch
-3. Commit your changes
-4. Open a pull request
+- The notebook mixes data preparation, training, and evaluation in a single file.
+- The validation set in the notebook is extended by concatenating the test set; adjust this if you want a strict hold‑out test set.
+- Results depend on dataset version and preprocessing choices.
 
 ## License
-Add a license file (e.g., MIT) and update this section accordingly.
+
+No license file is included. Add a license if you plan to reuse or distribute this project.
