@@ -92,6 +92,4 @@ model = keras.models.load_model("best_model.keras")
 - The validation set in the notebook is extended by concatenating the test set; adjust this if you want a strict hold-out test set.
 - Results depend on dataset version and preprocessing choices.
 
-## License
 
-This project is currently unlicensed. Consider adding an appropriate license (for example, MIT or Apache-2.0) before reuse or distribution.
