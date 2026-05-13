@@ -28,7 +28,7 @@ chest_xray/
     NORMAL/
 ```
 
-In the notebook, the default Colab paths are `/content/chest_xray/train`, `/content/chest_xray/val`, and `/content/chest_xray/test`. Update these paths if you run locally.
+In the notebook, the default Colab paths are `/content/chest_xray/train`, `/content/chest_xray/val`, and `/content/chest_xray/test`. Update these paths if you run locally (for example: `/home/user/data/chest_xray/train`).
 
 ## Approach Summary (from `pneumonia.ipynb`)
 
@@ -94,4 +94,4 @@ model = keras.models.load_model("best_model.keras")
 
 ## License
 
-No license file is included. Add a license if you plan to reuse or distribute this project.
+This project is currently unlicensed. Consider adding an appropriate license (for example, MIT or Apache-2.0) before reuse or distribution.
